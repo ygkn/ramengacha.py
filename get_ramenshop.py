@@ -23,9 +23,21 @@ def get_ramenshop(location, radius):
     with urllib.request.urlopen(req) as res:
         body = json.load(res)
 
-        print(body)
+        return list(
+            map(
+                lambda shop: {
+                    "name": shop["name"],
+                    "place_id": shop["place_id"],
+                    "location": shop["geometry"]["location"],
+                    "rating": shop["rating"],
+                    "opening_now": shop["opening_hours"]["open_now"],
+                },
+                body["results"],
+            )
+        )
+
+        # return body["results"]
 
 
 if __name__ == "__main__":
-    get_ramenshop({"lat": 34.9821826, "lng": 135.9610467}, 4000)
-
+    print(get_ramenshop({"lat": 34.9821826, "lng": 135.9610467}, 4000))
