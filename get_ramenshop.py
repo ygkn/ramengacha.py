@@ -7,7 +7,7 @@ apikey = "AIzaSyAOqwUYekkyQ4y3EgmXmhST4oMqckVmiVU"
 
 def get_ramenshop(location, radius):
     url = (
-        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key="
+        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?language=ja&key="
         + apikey
         + "&location="
         + str(location["lat"])
