@@ -28,7 +28,7 @@ style = ttk.Style()
 
 
 style.theme_settings(
-    "default",
+    style.theme_use(),
     {
         "Result.TLabel": {
             "configure": {
