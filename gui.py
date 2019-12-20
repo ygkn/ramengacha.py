@@ -245,7 +245,7 @@ class Rate(ttk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        self.label3 = ttk.Label(self, text="Google Maps の評価が")
+        self.label3 = ttk.Label(self, text="Google マップの評価が")
         self.label3.pack(side=tk.LEFT)
         self.min_rate_spinbox = ttk.Spinbox(
             self, width=1, textvariable=self.min_rate, from_=0, to=5, increment=1
