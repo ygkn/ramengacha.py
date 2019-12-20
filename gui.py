@@ -1,6 +1,8 @@
 from tkinter import ttk
 import tkinter as tk
 from random import choice
+import webbrowser
+import urllib.parse
 
 from filter_shops import filter_shops
 from get_ramenshop import get_ramenshop
@@ -109,6 +111,7 @@ class App(ttk.Frame):
             self, textvariable=self.button_text, command=self.button_pushed
         ).grid(padx=10, pady=10, sticky=tk.W + tk.E)
         Result(self, self.result).grid(padx=10, pady=10, sticky=tk.W + tk.E)
+        self.open_browser_button = OpenBrowser(self, self.open_browser)
 
     def fetch_shoplist(self):
         self.ramenlist = filter_shops(
@@ -125,7 +128,9 @@ class App(ttk.Frame):
             self.turing = True
             self.button_text.set("STOP")
             self.slot()
+            self.open_browser_button.grid_forget()
         else:
+            self.open_browser_button.grid()
             self.turing = False
             self.button_text.set("GO")
 
@@ -188,6 +193,11 @@ class App(ttk.Frame):
         ]
 
         self.bg.create_polygon(points, smooth=True, fill="#fff")
+
+    def open_browser(self):
+        webbrowser.open(
+            f"https://www.google.com/maps/search/?api=1&query={urllib.parse.quote(self.showing.get('name'))}&query_place_id={self.showing.get('place_id')}"
+        )
 
 
 class Logo(ttk.Frame):
@@ -270,6 +280,16 @@ class Result(ttk.Frame):
     def create_widgets(self):
         label = ttk.Label(self, textvariable=self.result, style="Result.TLabel")
         label.pack()
+
+
+class OpenBrowser(ttk.Frame):
+    def __init__(self, master=None, open_browser=None):
+        super().__init__(master)
+        self.open_browser = open_browser
+        self.create_widgets()
+
+    def create_widgets(self):
+        ttk.Button(self, text="Google マップで開く", command=self.open_browser).pack()
 
 
 app = App(master=root)
