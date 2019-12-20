@@ -22,6 +22,7 @@ root = tk.Tk()
 root.title("立命館周辺ラーメンガチャ")
 root.geometry(f"{int(w_width)}x{int(w_height)}")
 root.resizable(0, 0)
+root.iconbitmap(default="ramen.ico")
 
 style = ttk.Style()
 
