@@ -33,7 +33,7 @@ style.theme_settings(
         "Result.TLabel": {
             "configure": {
                 "font": ("System", 16),
-                "width": 20,
+                "width": 30,
                 "background": "#ffffff",
                 "padding": 16,
                 "pady": 20,
