@@ -3,6 +3,7 @@ import tkinter as tk
 from random import choice
 import webbrowser
 import urllib.parse
+import sys
 
 from filter_shops import filter_shops
 from get_ramenshop import get_ramenshop
@@ -24,7 +25,11 @@ root = tk.Tk()
 root.title("立命館周辺ラーメンガチャ")
 root.geometry(f"{int(w_width)}x{int(w_height)}")
 root.resizable(0, 0)
-root.iconbitmap(default="ramen.ico")
+if sys.platform.startswith("win"):
+    root.iconbitmap("ramen.ico")
+else:
+    logo = tk.PhotoImage(file="ramen.png")
+    root.call("wm", "iconphoto", root._w, logo)
 
 style = ttk.Style()
 
@@ -35,7 +40,7 @@ style.theme_settings(
         "Result.TLabel": {
             "configure": {
                 "font": ("System", 16),
-                "width": 30,
+                "width": 30 if sys.platform.startswith("win") else 20,
                 "background": "#ffffff",
                 "padding": 16,
                 "pady": 20,
@@ -123,7 +128,8 @@ class App(ttk.Frame):
 
     def button_pushed(self):
         if not self.turing:
-            self.button_text.set("SEARCHING SHOPS...")
+            self.button_text.set("ラーメン屋を検索中……。")
+            root.update()
             self.fetch_shoplist()
             self.turing = True
             self.button_text.set("STOP")
